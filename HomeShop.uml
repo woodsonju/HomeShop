@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="125.0">homeshop.Bill</node>
+    <node x="23.0" y="250.0">homeshop.Product</node>
+    <node x="44.0" y="0.0">homeshop.Customer</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="homeshop.Product" target="homeshop.Bill">
+      <point x="-53.33333333333334" y="-71.0" />
+      <point x="49.66666666666666" y="225.0" />
+      <point x="34.33333333333333" y="225.0" />
+      <point x="-68.66666666666667" y="37.5" />
+    </edge>
+    <edge source="homeshop.Bill" target="homeshop.Customer">
+      <point x="-51.5" y="-37.5" />
+      <point x="51.5" y="100.0" />
+      <point x="73.5" y="100.0" />
+      <point x="-29.5" y="37.5" />
+    </edge>
+    <edge source="homeshop.Bill" target="homeshop.Product">
+      <point x="0.0" y="37.5" />
+      <point x="0.0" y="-71.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="179.5" y="310.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
