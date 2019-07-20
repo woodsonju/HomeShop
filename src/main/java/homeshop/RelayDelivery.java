@@ -18,7 +18,7 @@ public class RelayDelivery implements Delivery {
     }
 
     public String getInfo() {
-        return "Retrait 0.0 €";
+        return "Livraison point relais : " + getPrice();
     }
 
 }
