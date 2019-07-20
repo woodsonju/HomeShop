@@ -27,7 +27,7 @@ class BillTest {
     private Delivery lowCostRelayDelivery = new RelayDelivery(27);
    
     @Test
-    public void When_2productsAndDelivery_When_generatinBill_Then_getGoodLineNumber() {
+    public void Given_2productsAndDelivery_When_generatinBill_Then_getGoodLineNumber() {
         Bill bill = new Bill(customer, lowCostRelayDelivery);
         bill.addProduct(cafe, 1);
         bill.addProduct(tv, 1);
@@ -37,11 +37,17 @@ class BillTest {
     }
 
     @Test
-    public void When_3productsAndDelivery_When_generatinBill_Then_getGoodTotal() {
+    public void Given_3productsAndDelivery_When_generatinBill_Then_getGoodTotal() {
         Bill bill = new Bill(customer, lowCostRelayDelivery);
         bill.addProduct(cafe, 1);
         bill.addProduct(tv, 1);
         bill.addProduct(fridge, 1);
-        assertEquals(867.99, bill.getTotal(), 0.01);
+        assertEquals(870.99, bill.getTotal(), 0.01);
+    }
+    
+    @Test
+    public void Given_emptyProductList_generatingBill_then_throwsException() {
+        Bill bill = new Bill(customer, lowCostRelayDelivery);
+        assertThrows(NoProductInBillException.class, () -> bill.generate(writerMock));
     }
 }

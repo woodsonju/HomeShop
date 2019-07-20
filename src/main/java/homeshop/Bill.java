@@ -69,7 +69,7 @@ public class Bill {
      * @return total price
      */
     public double getTotal() {
-        double total = 0;
+        double total = delivery.getPrice();
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {
             Product product = entry.getKey();
             Integer quantity = entry.getValue();
