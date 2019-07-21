@@ -1,4 +1,6 @@
-package homeshop;
+package homeshop.product;
+
+import homeshop.bill.Bill;
 
 public class Product {
     private String name;

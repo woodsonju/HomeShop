@@ -1,4 +1,4 @@
-package homeshop;
+package homeshop.product;
 
 
 class ProductTest {

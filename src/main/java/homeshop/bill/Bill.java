@@ -1,4 +1,9 @@
-package homeshop;
+package homeshop.bill;
+
+import homeshop.Customer;
+import homeshop.exception.NoProductInBillException;
+import homeshop.delivery.Delivery;
+import homeshop.product.Product;
 
 import java.util.HashMap;
 import java.util.Map;

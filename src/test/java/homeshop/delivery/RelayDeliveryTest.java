@@ -1,6 +1,8 @@
-package homeshop;
+package homeshop.delivery;
 
 
+import homeshop.delivery.Delivery;
+import homeshop.delivery.RelayDelivery;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

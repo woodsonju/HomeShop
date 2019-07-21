@@ -1,4 +1,4 @@
-package homeshop;
+package homeshop.delivery;
 
 public class ExpressDelivery implements Delivery{
 

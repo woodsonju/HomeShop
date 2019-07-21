@@ -1,5 +1,13 @@
 package homeshop;
 
+import homeshop.bill.Bill;
+import homeshop.bill.FileWriter;
+import homeshop.delivery.RelayDelivery;
+import homeshop.exception.NoProductInBillException;
+import homeshop.product.Fridge;
+import homeshop.product.Product;
+import homeshop.product.Television;
+
 public class Main {
     
     public static void main(String[] args) {
@@ -10,33 +18,13 @@ public class Main {
         Customer customer = new Customer("Juste Leblanc", "19 rue Germain Pilon, Paris");
         
         Bill bill = new Bill(customer, new RelayDelivery(27));
-        bill.addProduct(cafe, 1);
-        bill.addProduct(tv, 1);
-        bill.addProduct(fridge, 1);
-
-        Bill billConsoleDisplay = new Bill(customer, new RelayDelivery(27));
-        billConsoleDisplay.addProduct(cafe, 1);
-        billConsoleDisplay.addProduct(tv, 1);
-        billConsoleDisplay.addProduct(fridge, 1);
         
-        bill.generate(new FileWriter("facture_leblanc"));
+        try {
+            bill.generate(new FileWriter("facture_leblanc"));
+        } catch (NoProductInBillException e) {
+            System.out.println(e.getMessage());
+        }
         
-        billConsoleDisplay.generate(new Writer() {
-           
-            @Override
-            public void start() {
-            }
-
-            @Override
-            public void writeLine(String line) {
-                System.out.println(line);
-            }
-            
-            @Override
-            public void stop() {
-
-            }
-        });
         
     }
 }

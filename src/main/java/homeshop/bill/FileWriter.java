@@ -1,4 +1,4 @@
-package homeshop;
+package homeshop.bill;
 
 import java.io.IOException;
 import java.nio.file.Files;

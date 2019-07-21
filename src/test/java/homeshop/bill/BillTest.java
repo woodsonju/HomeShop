@@ -1,5 +1,12 @@
-package homeshop;
+package homeshop.bill;
 
+import homeshop.Customer;
+import homeshop.exception.NoProductInBillException;
+import homeshop.delivery.Delivery;
+import homeshop.delivery.RelayDelivery;
+import homeshop.product.Fridge;
+import homeshop.product.Product;
+import homeshop.product.Television;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

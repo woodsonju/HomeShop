@@ -1,4 +1,4 @@
-package homeshop;
+package homeshop.bill;
 
 public interface Writer {
     /**

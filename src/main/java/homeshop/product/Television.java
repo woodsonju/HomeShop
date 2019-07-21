@@ -1,4 +1,4 @@
-package homeshop;
+package homeshop.product;
 
 public class Television extends Product{
     private int size;

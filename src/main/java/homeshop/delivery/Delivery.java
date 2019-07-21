@@ -1,4 +1,4 @@
-package homeshop;
+package homeshop.delivery;
 
 public interface Delivery {
     public double getPrice();
