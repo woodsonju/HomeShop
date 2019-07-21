@@ -1,5 +1,9 @@
 package homeshop.web;
 
+import homeshop.Customer;
+import homeshop.bill.Bill;
+import homeshop.bill.Writer;
+import homeshop.delivery.*;
 import homeshop.product.Fridge;
 import homeshop.product.Product;
 import homeshop.product.Television;
@@ -10,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BillServlet extends HttpServlet {
     List<Product> products = new ArrayList<>();
@@ -30,10 +36,8 @@ public class BillServlet extends HttpServlet {
         if(req.getQueryString() == null)
             displayForm(resp);
         else
+            System.out.println(req.getQueryString());
             displayBill(req, resp);
-    }
-
-    private void displayBill(HttpServletRequest req, HttpServletResponse resp) {
     }
 
     private void displayForm(HttpServletResponse resp) throws IOException {
@@ -59,4 +63,80 @@ public class BillServlet extends HttpServlet {
         resp.getWriter().println(form);
     }
 
+    /**
+     * On découpe  queryString  à chaque  &
+     * Pour chaque bloc, on split sur  =
+     * S'il y a 2 champs (clé et valeur), on les ajoute à la  Map.
+     * @param queryString
+     * @return params
+     */
+    public Map<String, String> splitParamters(String queryString) {
+        String[] brutParams = queryString.split("&");
+        Map<String, String> params = new HashMap<>();
+        for(String brutParam: brutParams){
+            String[] keyAndValue = brutParam.split("=");
+            if(keyAndValue.length == 2) 
+                params.put(keyAndValue[0], keyAndValue[1]);
+        }
+        return params;
+    }
+
+
+    private void displayBill(HttpServletRequest req, HttpServletResponse resp) {
+        Map<String, String> params = splitParamters(req.getQueryString());
+        Customer customer = new Customer(params.get("fullname"), params.get("address"));
+        Delivery delivery = null;
+        switch (params.get("deliveryMode")){
+            case "direct" :
+                delivery = new DirectDelivery();
+                break;
+            case "express" :
+                delivery = new ExpressDelivery(params.get("deliveryInfo"));
+                break;
+            case "relay" :
+                delivery = new RelayDelivery(Integer.parseInt(params.get("deliveryInfo")));
+                break;
+            case "takeAway" :
+                delivery = new TakeAwayDelivery();
+                break;
+        }
+
+        Bill bill = new Bill(customer, delivery);
+        
+        String[] productsParams = params.get("products").split("%0D%0A");
+        for(String productLine: productsParams){
+            String[] productAndQuantity = productLine.split("%3A");
+            Product product = products.get(Integer.parseInt(productAndQuantity[0]));
+            Integer quantity = Integer.parseInt(productAndQuantity[1]);
+            bill.addProduct(product, quantity);
+        }
+        
+        bill.generate(new Writer() {
+            @Override
+            public void start() {
+                
+            }
+
+            @Override
+            public void writeLine(String line) {
+                try {
+                    resp.getWriter().println("<br/>" + line);
+                } catch (IOException e) {
+                    System.out.println("Impossible de rédiger la facture");
+                }
+            }
+
+            @Override
+            public void stop() {
+
+            }
+        });
+    }
+    /*
+    http://localhost:8080/bill?fullname=Juste+Leblanc
+&address=19+rue+Germain+Pilon&deliveryMode=express
+&deliveryInfo=Paris&products=1%3A2%0D%0A2%3A1
+    fullname=Woodson+juste&address=145+Chemin+de+Tournefeuille&
+    deliveryMode=direct&deliveryInfo=&products=
+     */
 }
