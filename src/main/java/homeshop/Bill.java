@@ -38,6 +38,8 @@ public class Bill {
      * @param writer object in charge of writin
      */
     public void generate(Writer writer) {
+        if(products.isEmpty())
+            throw  new NoProductInBillException("Pas de produit dans la facture");
         writer.start();
         writer.writeLine("HomeShop compagnie");
         writer.writeLine("1 Place Charles de Gaule, 75008 Paris");
