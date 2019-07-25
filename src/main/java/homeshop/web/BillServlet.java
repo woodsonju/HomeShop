@@ -3,6 +3,7 @@ package homeshop.web;
 import homeshop.Customer;
 import homeshop.bill.Bill;
 import homeshop.bill.Writer;
+import homeshop.dao.ProductDAO;
 import homeshop.delivery.*;
 import homeshop.product.Fridge;
 import homeshop.product.Product;
@@ -23,12 +24,14 @@ public class BillServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        Product cafe = new Product("Philips HD7866/61", "Philips SENSEO Quadrante, Noir - 1 ou 2 tasses", 79.99);
+  /*      Product cafe = new Product("Philips HD7866/61", "Philips SENSEO Quadrante, Noir - 1 ou 2 tasses", 79.99);
         Product tv = new Television("TV Samsung UE49MU6292", "Smart TV LED incurvée 49\"", 599, 49, "LED");
         Fridge fridge = new Fridge("BEKO TSE 1042 F", "Réfrigérateur BEKO 130L - Classe A+ - blanc", 189, 130, false);
         products.add(cafe);
         products.add(tv);
-        products.add(fridge);    }
+        products.add(fridge); */
+        products = new ProductDAO().getAll();
+    }
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,7 +39,6 @@ public class BillServlet extends HttpServlet {
         if(req.getQueryString() == null)
             displayForm(resp);
         else
-            System.out.println(req.getQueryString());
             displayBill(req, resp);
     }
 
